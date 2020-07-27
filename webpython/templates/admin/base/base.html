@@ -28,7 +28,7 @@
 
             <!--header start here-->
             {% block header %}
-                {% include "admin/header.html" %}
+                {% include "admin/base/header.html" %}
            {% endblock %}
             <!--header end here-->
 
@@ -51,20 +51,20 @@
 
             <!--inner block start here-->
                     {% block inner %}
-                        {% include "admin/inner.html" %}
+                        {% include "admin/base/inner.html" %}
                     {% endblock %}
             <!--inner block end here-->
 
             <!--copy rights start here-->
                     {% block copyright %}
-                        {% include "admin/copyright.html" %}
+                        {% include "admin/base/copyright.html" %}
                    {% endblock %}
             <!--COPY rights end here-->
 
             </div>
             <!--slider menu-->
                 {% block slidermenu %}
-                    {% include "admin/slider-menu.html" %}
+                    {% include "admin/base/slider-menu.html" %}
                {% endblock %}
             <!--slide bar menu end here-->
             </div>
