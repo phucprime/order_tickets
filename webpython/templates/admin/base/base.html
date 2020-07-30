@@ -3,7 +3,11 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Admin Panel</title>
+
+    {% block admintitle %}
+        <title>Trang quản lý</title>
+    {% endblock %}
+
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
     function hideURLbar(){ window.scrollTo(0,1); } </script>
 
@@ -60,7 +64,7 @@
 
             <!--copy rights start here-->
                     {% block copyright %}
-                        {% include "admin/base/copyright.html" %}
+                        {% include "admin/base/footer.html" %}
                    {% endblock %}
             <!--COPY rights end here-->
 

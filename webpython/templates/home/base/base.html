@@ -1,0 +1,87 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% block hometitle %}
+    <title>Vé máy bay</title>
+    {% endblock %}
+
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home/style.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,600,700&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  </head>
+  <body id="home">
+<!--block header-->
+{% block header %}
+    {% include "home/base/header.html" %}
+{% endblock %}
+<!-- end block header-->
+
+    <script src="{{ url_for('static', filename='js/home/jquery-3.3.1.min.js') }}"></script> <!-- Common jquery plugin -->
+    <!--bootstrap working-->
+    <script src="{{ url_for('static', filename='js/home/bootstrap.min.js') }}"></script>
+    <!-- //bootstrap working-->
+<!-- disable body scroll which navbar is in active -->
+<script>
+    $(function () {
+      $('.navbar-toggler').click(function () {
+        $('body').toggleClass('noscroll');
+      })
+    });
+  </script>
+  <!-- disable body scroll which navbar is in active -->
+<!--block banner-->
+{% block banner %}
+    {% include "home/base/banner.html" %}
+{% endblock %}
+<!--end block banner-->
+<!--block partner-->
+{% block partner %}
+    {% include "home/base/partner.html" %}
+{% endblock %}
+<!--end block partner-->
+<!--block inner-->
+{% block inner %}
+    {% include "home/base/inner.html" %}
+{% endblock %}
+<!--end block inner-->
+<!--footer block-->
+{% block footer %}
+    {% include "home/base/footer.html" %}
+{% endblock %}
+<!-- end footer block -->
+<!-- move top -->
+<button onclick="topFunction()" id="movetop" title="Go to top">
+	<span class="fa fa-angle-up"></span>
+</button>
+<script>
+	// When the user scrolls down 20px from the top of the document, show the button
+	window.onscroll = function () {
+		scrollFunction()
+	};
+
+	function scrollFunction() {
+		if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+			document.getElementById("movetop").style.display = "block";
+		} else {
+			document.getElementById("movetop").style.display = "none";
+		}
+	}
+
+	// When the user clicks on the button, scroll to the top of the document
+	function topFunction() {
+		document.body.scrollTop = 0;
+		document.documentElement.scrollTop = 0;
+	}
+</script>
+<!-- /move top -->
+</body>
+
+</html>

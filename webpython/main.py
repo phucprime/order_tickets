@@ -17,6 +17,11 @@ def flight_index_external():
     return render_template("admin/flight-external.html")
 
 
+@app.route('/admin/ticket')
+def ticket_index():
+    return render_template("admin/ticket.html")
+
+
 @app.route("/admin/order")
 def order_index():
     return render_template("admin/order.html")
@@ -25,6 +30,11 @@ def order_index():
 @app.route("/admin/report")
 def report_index():
     return render_template("admin/report.html")
+
+
+@app.route("/")
+def home_index():
+    return render_template("home/index.html")
 
 
 if __name__ == '__main__':
