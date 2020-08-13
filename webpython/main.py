@@ -1,7 +1,7 @@
 from webpython import app
 from flask import render_template
 
-
+"""
 @app.route('/admin')
 def admin_index():
     return render_template("admin/index.html")
@@ -30,6 +30,7 @@ def order_index():
 @app.route("/admin/report")
 def report_index():
     return render_template("admin/report.html")
+"""
 
 
 @app.route("/")
