@@ -1,132 +1,130 @@
-<!--inner block start here-->
-<div class="inner-block">
+
 <!--market updates updates-->
-	 <div class="market-updates">
-			<div class="col-md-4 market-update-gd">
-				<div class="market-update-block clr-block-1">
-					<div class="col-md-8 market-update-left">
-						<h3>83</h3>
-						<h4>Hóa đơn</h4>
-						<p>Hóa đơn mua vé máy bay</p>
-					</div>
-					<div class="col-md-4 market-update-right">
-						<i class="fa fa-file-text-o"> </i>
-					</div>
-				  <div class="clearfix"> </div>
-				</div>
-			</div>
-			<div class="col-md-4 market-update-gd">
-				<div class="market-update-block clr-block-2">
-				 <div class="col-md-8 market-update-left">
-					<h3>135</h3>
-					<h4>Chuyến bay</h4>
-					<p>Các chuyến bay</p>
-				  </div>
-					<div class="col-md-4 market-update-right">
-						<i class="fa fa-plane fa-5x" style="color: white;"> </i>
-					</div>
-				  <div class="clearfix"> </div>
-				</div>
-			</div>
-			<div class="col-md-4 market-update-gd">
-				<div class="market-update-block clr-block-3">
-					<div class="col-md-8 market-update-left">
-						<h3>23</h3>
-						<h4>Vé máy bay </h4>
-						<p>Các loại vé</p>
-					</div>
-					<div class="col-md-4 market-update-right">
-						<i class="fa fa-ticket fa-5x" style="color: white;"></i>
-					</div>
-				  <div class="clearfix"> </div>
-				</div>
-			</div>
+<div class="market-updates">
+            <a href="/admin/order">
+                <div class="col-md-4 market-update-gd btn-success text-center" style="color: white;">
+                    <div class="market-update-block clr-block-1">
+                        <div class="col-md-4 market-update-right">
+                            <i style="padding: 15px;" class="fa fa-file fa-4x"> </i>
+                        </div>
+                        <div class="col-md-7 market-update-left">
+                            <h3>{{ current_user.count_order }}</h3>
+                            <h4>Đơn đặt hàng</h4>
+                        </div>
+
+                      <div class="clearfix"> </div>
+                    </div>
+                </div>
+            </a>
+            <a href="/admin/flight">
+                <div class="col-md-4 market-update-gd btn-primary text-center" style="color: white;">
+                    <div class="market-update-block clr-block-2">
+                        <div class="col-md-4 market-update-right">
+                            <i style="padding: 15px;" class="fa fa-plane fa-4x"> </i>
+                        </div>
+                     <div class="col-md-7 market-update-left">
+                         <h3>{{ current_user.count_flight }}</h3>
+                        <h4>Chuyến bay</h4>
+                      </div>
+
+                      <div class="clearfix"> </div>
+                    </div>
+                </div>
+            </a>
+            <a href="/admin/ticket">
+                <div class="col-md-4 market-update-gd btn-danger text-center" style="color: white;">
+                    <div class="market-update-block clr-block-3">
+                        <div class="col-md-4 market-update-right">
+                            <i style="padding: 15px;" class="fa fa-ticket fa-4x"> </i>
+                        </div>
+                        <div class="col-md-7 market-update-left">
+                            <h3>{{ current_user.count_ticket }}</h3>
+                            <h4>Vé đã bán</h4>
+                        </div>
+
+                      <div class="clearfix"> </div>
+                    </div>
+                </div>
+            </a>
 		   <div class="clearfix"> </div>
 		</div>
-<!--market updates end here-->
-<!--mainpage chit-chating-->
+<!--END market updates updates-->
+
+<!--second component-->
+<div class="inner-block">
 <div class="chit-chat-layer1">
 	<div class="col-md-12 chit-chat-layer1-left">
                <div class="work-progres">
                             <div class="chit-chat-heading text-center">
-                                <h3 class="text">Các chuyến bay gần đây</h3>
+                                <h3 class="text text-warning">DANH SÁCH CÁC CHUYẾN BAY</h3>
                             </div>
                             <div class="table-responsive">
                                 <table class="table table-hover">
                                   <thead>
-                                    <tr>
-                                      <th>STT</th>
-                                      <th>Khởi hành</th>
-                                      <th>Kết thúc</th>
+                                        <tr>
+                                          <th>Mã</th>
+                                          <th>Sân bay đi</th>
+                                          <th>Sân hạ cánh</th>
 
-                                      <th>Trạng thái</th>
-                                      <th>Tiến trình</th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>1</td>
-                                  <td>Hà Nội</td>
-                                  <td>Hồ Chí Minh</td>
-
-                                  <td><span class="label label-danger">Đang bay</span></td>
-                                  <td><span class="badge badge-info">40%</span></td>
-                              </tr>
-                              <tr>
-                                  <td>2</td>
-                                  <td>Vinh</td>
-                                  <td>Hải Phòng</td>
-
-                                  <td><span class="label label-success">Đã hạ cánh</span></td>
-                                  <td><span class="badge badge-success">100%</span></td>
-                              </tr>
-                              <tr>
-                                  <td>3</td>
-                                  <td>Cần Thơ</td>
-                                  <td>Nha Trang</td>
-
-                                  <td><span class="label label-warning">Sắp hạ cánh</span></td>
-                                  <td><span class="badge badge-warning">95%</span></td>
-                              </tr>
-                              <tr>
-                                  <td>4</td>
-                                  <td>Hồ Chí Minh</td>
-                                  <td>Bắc Kinh</td>
-
-                                  <td><span class="label label-info">Đang bay</span></td>
-                                  <td><span class="badge badge-info">65%</span></td>
-                              </tr>
-                              <tr>
-                                  <td>5</td>
-                                  <td>Bangkok</td>
-                                  <td>Hà Nội</td>
-
-                                  <td><span class="label label-warning">Sắp hạ cánh</span></td>
-                                  <td><span class="badge badge-danger">95%</span></td>
-                              </tr>
-                              <tr>
-                                  <td>6</td>
-                                  <td>New York</td>
-                                  <td>Hồ Chí Minh</td>
-
-                                  <td><span class="label label-info">Đang bay</span></td>
-                                  <td><span class="badge badge-success">85%</span></td>
-                              </tr>
-                          </tbody>
+                                          <th>Khởi hành</th>
+                                          <th>Thời gian</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in current_user.flight_table %}
+                                            <tr>
+                                              <td>{{ item.id }}</td>
+                                              <td><i class="fa fa-plane-departure"></i> {{ item.airfield }} </td>
+                                                <td><i class="fa fa-plane-arrival"></i> {{ item.airfield_land_off }}</td>
+                                              <td><i class="fa fa-calendar-alt"> </i> {{ item.datetime }} </td>
+                                                <td><i class="fa fa-clock"></i> {{ item.time_duration }}</td>
+                                          </tr>
+                                        {% endfor %}
+                                    </tbody>
                       </table>
                   </div>
              </div>
       </div>
 
      <div class="clearfix"> </div>
-</div>
-<!--main page chit chating end here-->
-<!--main page chart start here-->
+</div></div>
+<!--END second component-->
 
- </div>
-<!--main page chart layer2-->
+<!--third component-->
+<div class="row">
+              <div class="col-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title text-info">DANH SÁCH CÁC ĐƠN ĐẶT HÀNG</h4>
+                    <div class="table-responsive">
+                      <table class="table">
+                        <thead>
+                          <tr>
 
-<!--climate start here-->
-<!--climate end here-->
-</div>
-<!--inner block end here-->
+                            <th> Mã hoá đơn </th>
+                              <th> CMND Khách hàng </th>
+                            <th> Loại vé </th>
+                            <th> Di động </th>
+                            <th> Giá vé </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in current_user.order_table %}
+                          <tr>
+                            <td><i class="fa fa-money-bill"></i> {{ item.bill }} </td>
+                              <td>
+                              <img style="width: 25px;" src="https://cdn3.iconfinder.com/data/icons/unigrid-phantom-human-vol-1/60/011_040_man_guy_user_human_avatar-512.png" class="mr-2" alt="image">
+                                {{ item.identity_number }} </td>
+                            <td>Hạng {{ item.ticket_type }}</td>
+                            <td> {{ item.phone }} </td>
+                            <td> {{ item.price }} VNĐ </td>
+                          </tr>
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+<!--END third component-->

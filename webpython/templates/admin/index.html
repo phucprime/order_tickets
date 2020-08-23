@@ -1,1 +1,12 @@
-{% extends "admin/base/base.html" %}
+{% extends "admin/master.html" %}
+
+{% block body %}
+
+    {% if current_user.is_authenticated %}
+         {% include "admin/base/inner.html" %}
+    {% else %}
+        {% include 'admin/login.html' %}
+
+    {% endif %}
+
+{% endblock %}
