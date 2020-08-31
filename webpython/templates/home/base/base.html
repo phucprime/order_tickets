@@ -7,23 +7,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     {% block hometitle %}
-    <title>Vé máy bay</title>
+        <title>Vé máy bay</title>
     {% endblock %}
 
     <!-- Template CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/home/style.css') }}">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Muli:400,600,700&display=swap" rel="stylesheet">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/home/style.css') }}">
+      <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Muli:400,600,700&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
           integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
   </head>
-  <body id="home">
+  <body id="home" style="position: relative;">
 <!--block header-->
 {% block header %}
     {% include "home/base/header.html" %}
 {% endblock %}
 <!-- end block header-->
-
     <script src="{{ url_for('static', filename='js/home/jquery-3.3.1.min.js') }}"></script> <!-- Common jquery plugin -->
     <!--bootstrap working-->
     <script src="{{ url_for('static', filename='js/home/bootstrap.min.js') }}"></script>
@@ -82,6 +84,10 @@
 	}
 </script>
 <!-- /move top -->
+
+<!-- SMOOTH SCROLL -->
+
+
 </body>
 
 </html>

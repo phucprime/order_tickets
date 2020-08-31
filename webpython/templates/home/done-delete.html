@@ -1,0 +1,12 @@
+{% extends "home/index.html" %}
+{% block banner %}
+
+{% endblock %}
+{% block inner %}
+    <div class="container text-center" style="padding: 20px;">
+        <h1 class="text-center text-danger">Bạn đã hủy đặt vé thành công. Hẹn gặp lại!</h1><br />
+        <a href="{{ url_for('home_index') }}" class="btn btn-primary">Quay lại trang chủ</a>
+    </div>
+    <br />
+    <br />
+{% endblock %}

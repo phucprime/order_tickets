@@ -1,0 +1,13 @@
+{% extends "home/index.html" %}
+{% block banner %}
+
+{% endblock %}
+{% block inner %}
+    <div class="container text-center" style="padding: 20px;">
+        <h1 class="text-center text-info">Chúc mừng. Bạn đã đặt vé thành công!
+            <br /> Vui lòng kiểm tra Email và SMS!</h1><br />
+        <a href="{{ url_for('home_index') }}" class="btn btn-primary">Quay lại trang chủ</a>
+    </div>
+    <br />
+    <br />
+{% endblock %}

@@ -1,0 +1,198 @@
+{% extends "home/base/base.html" %}
+{% block banner %}
+{% endblock %}
+
+{% block inner %}
+
+    <br />
+
+<div class="inner-block col-md-10 container" style="padding: 10px;">
+<div class="chit-chat-layer1">
+	<div class="chit-chat-layer1-left">
+               <div class="work-progres">
+                            <div class="chit-chat-heading text-center">
+                               <h1 class="text-primary">CHI TIẾT CHUYẾN BAY</h1><br /><br /><br />
+                            </div>
+                            <div class="table-responsive">
+
+                       {% for item in schedule %}
+                           <table class="col-md-12" >
+                            <thead >
+                                    <tr >
+                                        <td >
+                                            <div class="text-center"
+                                                 style="border: 1px solid mediumslateblue;
+                                                        border-right: 0px; border-bottom-left-radius: 15px;
+                                                        border-top-left-radius: 15px; ">
+                                                <h4>
+                                                    <h5 class="text-info">Mã chuyến bay </h5>
+                                                    {{ item.flight.id }}
+
+                                                </h4>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center"
+                                                 style="border: 1px solid mediumslateblue; border-right: 0px;
+                                                        padding: 10px; border-left: 0px; border-radius: 10px;">
+                                                <h4>
+                                                    <h5 class="text-info">Chuyến bay </h5>
+                                                    <span>
+                                                        {{ item.flight.airfield }}
+                                                        <span> - </span>
+                                                        {{ item.flight.airfield_land_off }}
+                                                    </span>
+                                                </h4>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center" style="border: 1px solid mediumslateblue;
+                                                                            border-right: 0px; border-left: 0px;">
+                                                <h4>
+                                                    <h5 class="text-info">Khởi hành </h5>
+                                                    {{ item.flight.datetime }}
+
+                                                </h4>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center" style="border: 1px solid mediumslateblue;
+                                            border-right: 0px; border-left: 0px;">
+                                                <h4>
+                                                    <h5 class="text-info">Thời gian </h5>
+                                                    {{ item.flight.time_duration }}
+
+                                                </h4>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center"
+                                                 style="border: 1px solid mediumslateblue; border-right: 0px;
+                                                        padding: 10px; border-left: 0px;
+                                                        border-radius: 15px;">
+                                                <h4>
+                                                    <h5 class="text-info">Giá vé </h5>
+                                                    {{ "{:,.0f}".format(item.flight.price) }} VNĐ
+
+                                                </h4>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center" style="border: 1px solid mediumslateblue;
+                                                                            border-right: 0px; border-left: 0px;">
+                                                <h4>
+                                                    <h5 class="text-info">Ghế trống </h5>
+                                                    {{ item.flight.available_chair }}
+
+                                                </h4>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-center"
+                                                 style="border: 1px solid mediumslateblue;
+                                                        border-top-right-radius: 15px;
+                                                        border-bottom-right-radius: 15px;
+                                                        border-left: 0px;">
+                                                <h4>
+                                                    <h5 class="text-info">Ghế đã đặt </h5>
+                                                    {{ item.flight.unavailable_chair }}
+                                                </h4>
+                                            </div>
+                                        </td>
+                                    </tr>
+                            </thead>
+
+                           </table>
+
+                           <br /><br /><br />
+
+                                <table class="table table-hover text-center" >
+
+                                  <thead >
+                                        <tr>
+
+                                          <th>Ghế hạng 1</th>
+                                          <th>Ghế hạng 2</th>
+                                            <th>---</th>
+                                          <th>Sân trung gian 1</th>
+                                            <th>Thời gian dừng 1</th>
+                                            <th>Ghi chú 1</th>
+                                            <th>---</th>
+                                          <th>Sân trung gian 2</th>
+                                            <th>Thời gian dừng 2</th>
+                                            <th>Ghi chú 2</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                                <tr>
+                                                    <td>
+                                                        {{ item.chair_type_1 }}
+                                                    </td>
+
+                                                    <td>
+                                                        {{ item.chair_type_2 }}
+                                                    </td>
+                                                    <td>---</td>
+                                                    <td>
+                                                        {{ item.mid_airfield }}
+                                                    </td>
+
+                                                    <td>
+                                                        {{ item.mid_airfield_time }}
+                                                    </td>
+
+                                                    <td>
+                                                        {{ item.mid_airfield_note }}
+                                                    </td>
+
+                                                    <td>---</td>
+
+                                                    <td>
+                                                        {{ item.mid_airfield_2 }}
+                                                    </td>
+
+                                                    <td>
+                                                        {{ item.mid_airfield_time_2 }}
+                                                    </td>
+
+                                                    <td>
+                                                        {{ item.mid_airfield_note_2 }}
+                                                    </td>
+
+                                                </tr>
+                                                <tr><td></td></tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>
+                                                        <a href="{{ url_for('order_form',
+                                                        schedule_id=item.flight_id) }}"
+                                                           class="btn btn-primary">
+                                                            Đặt vé chuyến bay này
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-primary" onclick="history.back(-1)" style="color: white;">
+                                                            Quay lại
+                                                        </a>
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                    </tbody>
+                            </table>
+               {% endfor %}
+
+                       </div>
+             </div>
+      </div>
+
+     <div class="clearfix"> </div>
+
+</div></div>
+{% endblock %}

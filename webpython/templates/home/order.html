@@ -1,0 +1,92 @@
+{% extends "home/base/base.html" %}
+{% block banner %}
+{% endblock %}
+{% block inner %}
+    <h1 class="text-center text-primary">PHIẾU ĐẶT VÉ CHUYẾN BAY</h1><br />
+    {% for item in schedule %}
+    <form action="{{ url_for('order_flight') }}" class="container col-md-4" method="post">
+          <div class="text-center" style="border: 2px solid #4a15ff; border-radius: 10px;">
+            <br />
+            <div class="form-group">
+                <label>Mã chuyến bay:
+                    <select name="flight_id" class="text-info text-center" style="border: 0px;">
+                        <option>{{ item.flight_id }}</option>
+                    </select>
+                </label>
+            </div>
+            <div class="form-group">
+                  <label>
+                    Chuyến bay:
+                  </label>
+                  <select name="flight" class="text-info text-center" style="border: 0px;">
+                      <option> {{ item.flight.airfield }} - {{ item.flight.airfield_land_off }} </option>
+                  </select>
+            </div>
+
+              <div class="form-group">
+                    <label>Giá vé: </label>
+                    <select name="price" class="text-info text-center" style="border: 0px;">
+                        <option>{{ "{:,.0f}".format(item.flight.price) }}</option>
+                    </select>
+                    <label>VNĐ</label>
+                  </div>
+              </div>
+
+              <br />
+
+              <div class="form-group">
+                  <label>
+                      <span style="color: red;">*</span> Họ và Tên:
+                  </label>
+                  <input name="passengers" required type="text" class="form-control" />
+              </div>
+
+
+              <div class="form-group">
+                <label>
+                    <span style="color: red;">*</span> Chứng minh thư:
+                </label>
+                <input name="identity_number" required type="number" class="form-control" />
+              </div>
+
+              <div class="form-group">
+                <label>
+                    <span style="color: red;">*</span> Số điện thoại:
+                </label>
+                <input name="phone" required type="tel" class="form-control" />
+              </div>
+
+              <div class="form-group">
+                <label>
+                    <span style="color: red;">*</span> Email:
+                </label>
+                <input name="email" required type="email" class="form-control" />
+              </div>
+
+              <div class="form-group">
+                <label>Chọn hạng vé:</label>
+                <select name="ticket_type" class="form-control">
+                   <option>1</option>
+                   <option>2</option>
+                </select>
+              </div>
+          <button onclick="return confirm_order()" type="submit" style="color: white;" class="btn btn-primary form-group">
+              Xác nhận đặt vé
+          </button>
+          <a class="btn btn-primary form-group" onclick="confirm_goback(), history.back(-1)" style="color: white;">
+              Hủy đặt vé
+          </a>
+    </form>
+
+
+
+    <script type="text/javascript">
+        function confirm_order() {
+          return confirm('Tiến hành đặt vé chuyến bay: {{ item.flight.airfield }} - {{ item.flight.airfield_land_off }}');
+        }
+        function confirm_goback() {
+          return confirm('Quay lại sẽ mất thông tin bạn đang nhập!');
+        }
+    </script>
+    {% endfor %}
+{% endblock %}

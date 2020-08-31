@@ -7,11 +7,13 @@ from flask_login import UserMixin, current_user, logout_user
 from flask_admin import BaseView, expose
 
 
+#check dang nhap admin
 class AuthenticatedView(ModelView):
     def is_accessible(self):
         return current_user.is_authenticated
 
 
+#chuyen bay
 class Flight(db.Model):
     __tablename__ = "flight"
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -21,6 +23,7 @@ class Flight(db.Model):
     time_duration = Column(String(20), nullable=False)
     available_chair = Column(Integer, default=0)
     unavailable_chair = Column(Integer, default=0)
+    price = Column(Float(20), default=0)
     flight_schedule = relationship('FlightSchedule', backref='flight', lazy=True)
 
     def __str__(self):
@@ -33,6 +36,7 @@ class Flight(db.Model):
                + " - Ghế đã đặt: " + str(self.unavailable_chair)
 
 
+#lich bay
 class FlightSchedule(db.Model):
     __tablename__ = "flightschedule"
     flight_id = Column(Integer, ForeignKey(Flight.id), nullable=False, primary_key=True)
@@ -50,15 +54,17 @@ class FlightSchedule(db.Model):
         return 'Mã chuyến bay: ' + str(self.flight_id)
 
 
+#phieu dat ve
 class Order(db.Model):
     __tablename__ = "order"
-    flight_id = Column(Integer, ForeignKey(FlightSchedule.flight_id), nullable=False, primary_key=True)
-    bill = Column(String(10), nullable=False)
+    flight_id = Column(Integer, ForeignKey(FlightSchedule.flight_id), nullable=False)
+    bill = Column(Integer, autoincrement=True, nullable=False, primary_key=True)
     identity_number = Column(String(20), nullable=False)
     ticket_type = Column(Integer, default=1, nullable=False)
-    passengers = Column(Integer, nullable=False)
+    passengers = Column(String(50), nullable=False)
     phone = Column(String(20), nullable=False)
-    price = Column(Float(20), default=0)
+    email = Column(String(30), nullable=False)
+    price = Column(String(40))
     tickets = relationship('Ticket', backref='order', lazy=True)
 
     def __str__(self):
@@ -70,11 +76,13 @@ class Order(db.Model):
                     + " - Giá: " + str(self.price) + " VNĐ"
 
 
+#ve
 class Ticket(db.Model):
     __tablename__ = "ticket"
     flight_id = Column(Integer, ForeignKey(Order.flight_id), primary_key=True)
 
 
+#bao cao thang
 class MonthReport(db.Model):
     __tablename__ = 'monthreport'
     id = Column(Integer, autoincrement=True, primary_key=True, nullable=False)
@@ -84,6 +92,7 @@ class MonthReport(db.Model):
     revenue = Column(Float, default=0)
 
 
+#bao cao nam
 class YearReport(db.Model):
     __tablename__ = 'yearreport'
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
@@ -97,6 +106,7 @@ Session = sessionmaker(bind=db.engine)
 session = Session()
 
 
+#thong tin user
 class User(db.Model, UserMixin):
     __tablename__ = "user"
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -125,10 +135,11 @@ class LogoutView(BaseView):
         return current_user.is_authenticated
 
 
+###check
 class FlightModelView(AuthenticatedView):
     column_labels = dict(airfield='Sân bay đi', airfield_land_off='Sân bay đến', datetime='Khởi hành',
                          time_duration='Thời gian', available_chair='Ghế trống', unavailable_chair='Ghế đã đặt',
-                         flight_schedule='Lịch chuyến bay')
+                         flight_schedule='Lịch chuyến bay', price='Giá tiền')
 
 
 class FlightScheduleModelView(AuthenticatedView):
@@ -141,8 +152,8 @@ class FlightScheduleModelView(AuthenticatedView):
 
 class OrderModelView(AuthenticatedView):
     column_labels = dict(bill='Hoá đơn', identity_number='CMND', ticket_type='Loại vé',
-                         passengers='Hành khách', phone='SĐT', price='Giá', flightschedule='Chuyến bay',
-                         tickets='Vé')
+                         passengers='Hành khách', phone='SĐT', email='Email', price='Giá',
+                         flightschedule='Chuyến bay', tickets='Vé')
 
 
 class TicketModelView(AuthenticatedView):

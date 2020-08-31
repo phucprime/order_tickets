@@ -3,7 +3,8 @@
         <header class="absolute-top">
             <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light">
-                <h1><a class="navbar-brand" href="{{ url_for('home_index') }}"><span class="fa fa-plane" aria-hidden="true"></span>
+                <h1><a class="navbar-brand" href="{{ url_for('home_index') }}">
+                    <span class="fa fa-plane" aria-hidden="true"></span>
                    AirPlane
                 </a></h1>
                 <button class="navbar-toggler bg-gradient" type="button" data-toggle="collapse"
@@ -19,34 +20,33 @@
                                 <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Giới thiệu</a>
+                            <a class="nav-link" href="{{ url_for('about') }}">
+                                Giới thiệu</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Dịch vụ</a>
+                            <a class="nav-link" href="/#reviews">Đánh giá</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/#footer-id">Liên hệ</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav search-righ">
                         <li class="nav-item" title="Search"><a href="#search" class="btn search-search">
                             <i class="fa fa-search mr-2" aria-hidden="true"></i>Tìm kiếm</a></li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Liên hệ</a>
-                        </li>
-
                     </ul>
                     <!-- search popup -->
                     <div id="search" class="pop-overlay">
                         <div class="popup">
-                            <form action="#" method="GET" class="d-flex">
-                                <input type="search" placeholder="Nhập nội dung tìm kiếm..." name="search"
+                            <form action="{{ url_for('home_index') }}" method="GET" class="d-flex">
+                                <input type="search" placeholder="Nhập tên sân bay cần tìm..." name="keyword"
                                        required="required" autofocus>
                                 <button type="submit">Tìm kiếm</button>
-                                <a class="close" href="#">&times;</a>
+                                <a class="close" href="/#list-flights">&times;</a>
                             </form>
                         </div>
                     </div>
                     <!-- /search popup -->
                 </div>
-
 
             </nav>
         </div>

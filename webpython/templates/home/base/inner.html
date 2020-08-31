@@ -1,87 +1,100 @@
-<div class="container mt-3">
-  <h2 style="padding: 20px;" class="text-center">Chọn địa điểm khởi hành và kết thúc để đặt vé</h2>
-  <form action="" class="text-center">
-      <span>Nơi khởi hành: </span>
-    <select name="place1" class="custom-select mb-3" style="width: 30%; margin-top: 1.5%;">
-      <option>Hà Nội</option>
-      <option>Hồ Chí Minh</option>
-      <option>Cần Thơ</option>
-    </select>
-      <span> - Nơi kết thúc: </span>
-      <select name="place2" class="custom-select mb-3" style="width: 30%; margin-top: 1.5%;">
-      <option>Hồ Chí Minh</option>
-      <option>Đà Nẵng</option>
-      <option>Hà Nội</option>
-    </select>
-    <button type="submit" class="btn btn-primary">Kiểm tra</button>
-  </form>
-</div>
-<section class="w3l-specification-6">
-    <div class="specification-layout">
+
+<section class="w3l-clients" id="list-flights">
+    <div class="main-w3">
         <div class="container">
-            <div class="main-titles-head">
-
-                <h3 class="header-name">Nội dung trang chủ ở đây
-                </h3>
-
-            </div>
-            <div class="specification-effect row text-center">
-                <div class="grids-effect-2 col-lg-4 col-md-6 col-sm-6">
-
-                    <div class="back-color">
-                    <span class="fa fa-thumbs-up" aria-hidden="true"></span>
-                    <h4><a href="about.html" class="title-head">abc</a></h4>
-                    <p class="para">sub </p>
+            <!-- main-slider -->
+                <div class="main-titles-head">
+                    <h3 class="header-name text-primary">Tra cứu chuyến bay</h3>
                 </div>
-            </div>
-                <div class=" grids-effect-2 col-lg-4 col-md-6 col-sm-6">
-                    <div class="back-color">
-                    <span class="fa fa-picture-o" aria-hidden="true"></span>
-                    <h4><a href="about.html" class="title-head">abc</a></h4>
-                    <p class="para">sub </p>
+                    <div class="container mt-3 hh14-text hh14-info" >
+                      <h2 style="padding: 20px;" class="text-center">Chọn địa điểm khởi hành và kết thúc để tra cứu</h2>
+                      <form action="{{ url_for('home_index') }}" class="text-center">
+                          <span>Nơi khởi hành: </span>
+                        <select name="airfield" class="custom-select mb-3 text-info" style="width: 30%; margin-top: 1.5%;">
+                          {% for item in option %}
+                              <option>{{ item.airfield }}</option>
+                          {% endfor %}
+                        </select>
+                        <span> - Nơi kết thúc: </span>
+                        <select name="airfield_land_off" class="custom-select mb-3 text-info" style="width: 30%; margin-top: 1.5%;">
+                              {% for item in option %}
+                                  <option>{{ item.airfield_land_off }}</option>
+                              {% endfor %}
+                        </select>
+                        <button type="submit" class="btn btn-primary fa fa-search" style="padding: 10px;">
+                            Tra cứu</button>
+                      </form>
                     </div>
                 </div>
-                <div class="grids-effect-2 col-lg-4 col-md-6 col-sm-6">
-                    <div class="back-color">
-                    <span class="fa fa-pie-chart" aria-hidden="true"></span>
-                    <h4><a href="about.html" class="title-head">abc</a></h4>
-                    <p class="para">sub</p>
-                </div>
-            </div>
-                <div class="grids-effect-2 col-lg-4 col-md-6 col-sm-6 mt-4 pt-1">
-                    <div class="back-color">
-                    <span class="fa fa-mobile" aria-hidden="true"></span>
-                    <h4><a href="about.html" class="title-head">abc</a></h4>
-                    <p class="para">sub </p>
-                </div>
-            </div>
-                <div class=" grids-effect-2 col-lg-4 col-md-6 col-sm-6 mt-4 pt-1">
-                    <div class="back-color">
-                    <span class="fa fa-bolt" aria-hidden="true"></span>
-                    <h4><a href="about.html" class="title-head"> abc</a></h4>
-                    <p class="para">sub </p>
-                </div>
-            </div>
-                <div class="grids-effect-2 col-lg-4 col-md-6 col-sm-6 mt-4 pt-1 ">
-                    <div class="back-color">
-                    <span class="fa fa-cubes" aria-hidden="true"></span>
-                    <h4><a href="about.html" class="title-head">abc</a></h4>
-                    <p class="para">sub  </p>
-                </div>
-            </div>
-        </div>
         </div>
     </div>
 </section>
-<section class="w3l-clients">
+<br />
+<!-- table of flight-->
+<!--second component-->
+<div class="inner-block col-md-9 container">
+<div class="chit-chat-layer1">
+	<div class="chit-chat-layer1-left">
+               <div class="work-progres">
+                            <div class="chit-chat-heading text-center">
+                                <h3 class="text-primary">LỊCH CÁC CHUYẾN BAY</h3><br />
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                  <thead>
+                                        <tr>
+                                          <th></th>
+                                          <th>Mã</th>
+                                          <th>Sân bay đi</th>
+                                          <th>Sân hạ cánh</th>
+                                          <th class="text-center">Khởi hành</th>
+                                          <th class="text-center">Thời gian</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in flights %}
+                                            <form action="{{ url_for('details_flight', flight_id=item.id) }}">
+                                                <tr>
+                                                    <td>
+                                                        <img style="width: 50px; margin-top: -10px; margin-right: -20px;" src="https://lh3.googleusercontent.com/proxy/_7ZhLppweoiAvhbsVi0DKPsuPjW2UvJa0joimUsh-l7PC622juT4jL2PHMU17ngcF3n1Kn18KclUtwT5GS_-Cl5AqnHItKQwuk5MswTbuaQM5t6AScAM78sV-RY">
+                                                    </td>
+                                                    <td>
+                                                        {{ item.id }}
+                                                    </td>
+                                                    <td>
+                                                        <i class="fa fa-plane-departure"></i> {{ item.airfield }}
+                                                    </td>
+                                                    <td><i class="fa fa-plane-arrival">
+                                                        </i> {{ item.airfield_land_off }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <i class="fa fa-calendar-alt"> </i> {{ item.datetime }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <i class="fa fa-clock"></i> {{ item.time_duration }}
+                                                    </td>
+                                                    <td>
+                                                        <button type="submit" class="btn btn-primary">Chi tiết</button>
+                                                    </td>
+                                                </tr>
+                                            </form>
+                                        {% endfor %}
+                                    </tbody>
+                      </table>
+                  </div>
+             </div>
+      </div>
+
+     <div class="clearfix"> </div>
+</div></div>
+<!--END second component-->
+<!-- end table of flight-->
+<section class="w3l-clients" id="reviews">
     <div class="main-w3">
         <div class="container">
             <!-- main-slider -->
             <div class="main-titles-head">
-
-                <h3 class="header-name">Đánh giá từ khách hàng
-                </h3>
-
+                <h3 class="header-name text-primary">Đánh giá từ khách hàng</h3>
             </div>
 
             <div class="row">
@@ -101,16 +114,16 @@
                     <div class="col-lg-6 col-md-6 hh14-text">
                         <div class="hh14-info">
                             <img src="https://cdn.pixabay.com/photo/2016/08/20/05/36/avatar-1606914_1280.png" alt="product" class="img-responsive ">
-                            <span>Ngọc Ánh</span>
+                            <span>Ngọc Mozilla</span>
                             <p class="para mt-3">Giá cả cạnh tranh, dịch vụ và hỗ trợ khách hàng rất tốt.</p>
                             <i class="fa fa-star fa-2x" style="color: #ffe80a"></i>
                             <i class="fa fa-star fa-2x" style="color: #ffe80a"></i>
                             <i class="fa fa-star fa-2x" style="color: #ffe80a"></i>
                             <i class="fa fa-star fa-2x" style="color: #ffe80a"></i>
                             <i class="fa fa-star fa-2x" style="color: #ffe80a"></i>
-
                         </div>
                     </div>
+
                 </div>
         </div>
     </div>

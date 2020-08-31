@@ -1,0 +1,76 @@
+{% extends "home/base/base.html" %}
+{% block banner %}
+{% endblock %}
+{% block inner %}
+{% if bill %}
+    <div class="container text-center col-md-6">
+
+        <form action="{{ url_for('mail_sender') }}" class="form-group container" method="post">
+            <h1 class="text-primary">XÁC NHẬN THÔNG TIN THANH TOÁN</h1><br />
+            <div style="border: 1px solid #4a15ff; border-radius: 10px; padding: 10px;">
+                <div class="form-group">
+                    <label>Chuyến bay:
+                        <select name="flight" class="text-info text-center" style="border: 0px;">
+                            <option>{{ flight }}</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>Khách hàng:
+                        <select name="passengers" class="text-info text-center" style="border: 0px;">
+                            <option>{{ bill.passengers }}</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>CMND:
+                        <select name="identity_number" class="text-info text-center" style="border: 0px;">
+                            <option>{{ bill.identity_number }}</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>SĐT:
+                        <select name="phone" class="text-info text-center" style="border: 0px;">
+                            <option>{{ bill.phone }}</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label>Email:
+                        <select name="email" class="text-info text-center" style="border: 0px;">
+                            <option>{{ bill.email }}</option>
+                        </select>
+                    </label>
+                </div>
+                 <div class="form-group">
+                    <label>Hạng vé:
+                        <select name="ticket_type" class="text-info text-center" style="border: 0px;">
+                            <option>{{ bill.ticket_type }}</option>
+                        </select>
+                    </label>
+                </div>
+                 <div class="form-group">
+                    <label>Giá tiền:
+                        <select name="price" class="text-info text-center" style="border: 0px;">
+                            <option>{{ bill.price }}</option>
+                        </select>
+                    </label> VNĐ
+                </div>
+            </div><br />
+            <button onclick="return confirm_order()" type="submit" class="btn btn-primary">Xác nhận</button>
+            <a onclick="return confirm_delete()" href="{{ url_for('done_cancel', passengers=bill.bill) }}" class="btn btn-primary">Hủy đặt vé</a>
+        </form>
+    </div>
+    <br />
+    <br />
+    <script type="text/javascript">
+        function confirm_order() {
+          return confirm('Xác nhận và nhận vé!');
+        }
+        function confirm_delete() {
+          return confirm('Hủy đặt chuyến: {{ flight }}? Xác nhận để hủy và xóa thông tin đã nhập.');
+        }
+    </script>
+  {% endif %}
+{% endblock %}
