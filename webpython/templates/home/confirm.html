@@ -64,6 +64,16 @@
     </div>
     <br />
     <br />
+
+  {% else %}
+    <br />
+    <div class="container text-center">
+        <img style="width: 300px;" src="https://img.pngio.com/error-png-92-images-in-collection-page-3-error-png-900_858.png">
+        <br /><h1 class=" text-danger text-center">Số điện thoại chưa hợp lệ!</h1><br />
+        <a style="color: white;" onclick="history.back(-1)" class="btn btn-primary">Quay lại</a>
+    </div>
+    <br />
+  {% endif %}
     <script type="text/javascript">
         function confirm_order() {
           return confirm('Xác nhận và nhận vé!');
@@ -72,5 +82,4 @@
           return confirm('Hủy đặt chuyến: {{ flight }}? Xác nhận để hủy và xóa thông tin đã nhập.');
         }
     </script>
-  {% endif %}
 {% endblock %}
