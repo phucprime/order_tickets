@@ -1,42 +1,45 @@
 from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, Boolean
-from sqlalchemy.orm import relationship, sessionmaker, session
+from sqlalchemy.orm import relationship, sessionmaker
 from webpython import admin, db
 from flask import redirect
 from flask_admin.contrib.sqla import ModelView
 from flask_login import UserMixin, current_user, logout_user
 from flask_admin import BaseView, expose
+from datetime import datetime
+from sqlalchemy.sql import func
 
 
-#check dang nhap admin
+Session = sessionmaker(bind=db.engine)
+session = Session()
+
+
 class AuthenticatedView(ModelView):
     def is_accessible(self):
         return current_user.is_authenticated
 
 
-#chuyen bay
 class Flight(db.Model):
     __tablename__ = "flight"
     id = Column(Integer, primary_key=True, autoincrement=True)
     airfield = Column(String(30), nullable=False)
     airfield_land_off = Column(String(30), nullable=False)
-    datetime = Column(String(20), nullable=False)
+    datetime = Column(DateTime, default=datetime.now())
     time_duration = Column(String(20), nullable=False)
     available_chair = Column(Integer, default=0)
     unavailable_chair = Column(Integer, default=0)
-    price = Column(Float(20), default=0)
+    price = Column(Float, default=0)
     flight_schedule = relationship('FlightSchedule', backref='flight', lazy=True)
 
     def __str__(self):
         return "Chuyến bay số " + str(self.id) \
                + ": " + self.airfield \
                + " - " + self.airfield_land_off \
-               + " - Khởi hành: " + self.datetime \
+               + " - Khởi hành: " + str(self.datetime) \
                + " - Thời gian: " + self.time_duration \
                + " - Ghế trống: " + str(self.available_chair) \
                + " - Ghế đã đặt: " + str(self.unavailable_chair)
 
 
-#lich bay
 class FlightSchedule(db.Model):
     __tablename__ = "flightschedule"
     flight_id = Column(Integer, ForeignKey(Flight.id), nullable=False, primary_key=True)
@@ -54,7 +57,6 @@ class FlightSchedule(db.Model):
         return 'Mã chuyến bay: ' + str(self.flight_id)
 
 
-#phieu dat ve
 class Order(db.Model):
     __tablename__ = "order"
     flight_id = Column(Integer, ForeignKey(FlightSchedule.flight_id), nullable=False)
@@ -64,49 +66,24 @@ class Order(db.Model):
     passengers = Column(String(50), nullable=False)
     phone = Column(String(20), nullable=False)
     email = Column(String(30), nullable=False)
-    price = Column(String(40))
-    tickets = relationship('Ticket', backref='order', lazy=True)
+    price = Column(Float, default=0)
 
     def __str__(self):
-        return "Mã hoá đơn: " + self.bill \
-                    + " - CMND: " + self.identity_number \
-                    + " - Loại vé: " + str(self.ticket_type) \
-                    + " - Hành khách: " + str(self.passengers) \
-                    + " - SĐT: " + self.phone \
-                    + " - Giá: " + str(self.price) + " VNĐ"
+        return "Mã hoá đơn: " + str(self.bill) \
+               + " - CMND: " + self.identity_number \
+               + " - Loại vé: " + str(self.ticket_type) \
+               + " - Hành khách: " + str(self.passengers) \
+               + " - SĐT: " + self.phone \
+               + " - Giá: " + str(self.price) + " VNĐ"
 
 
-#ve
-class Ticket(db.Model):
-    __tablename__ = "ticket"
-    flight_id = Column(Integer, ForeignKey(Order.flight_id), primary_key=True)
+class Rules(db.Model):
+    __tablename__ = "rules"
+    id = Column(Integer, nullable=False, primary_key=True, autoincrement=True)
+    max_airfield = Column(Integer, default=10)
+    min_time_duration = Column(Integer, default=30)
 
 
-#bao cao thang
-class MonthReport(db.Model):
-    __tablename__ = 'monthreport'
-    id = Column(Integer, autoincrement=True, primary_key=True, nullable=False)
-    flight = Column(String(10), nullable=False)
-    ticket_count = Column(Integer, default=0)
-    ratio = Column(Float, default=0)
-    revenue = Column(Float, default=0)
-
-
-#bao cao nam
-class YearReport(db.Model):
-    __tablename__ = 'yearreport'
-    id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
-    month = Column(Integer, default=1)
-    flight_count = Column(Integer, default=0)
-    revenue = Column(Float, default=0)
-    ratio = Column(Float, default=0)
-
-
-Session = sessionmaker(bind=db.engine)
-session = Session()
-
-
-#thong tin user
 class User(db.Model, UserMixin):
     __tablename__ = "user"
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -117,9 +94,12 @@ class User(db.Model, UserMixin):
 
     count_flight = session.query(Flight.id).count()
     count_order = session.query(Order.bill).count()
-    count_ticket = session.query(Ticket.flight_id).count()
+    count_ticket = session.query(Order.bill).count()
     flight_table = session.query(Flight)
     order_table = session.query(Order)
+    revenue = session.query(func.sum(Order.price).label("revenue")).group_by(Order.price).all()
+    ticket_1 = session.query(Order.ticket_type).filter(Order.ticket_type.like(1)).count()
+    ticket_2 = session.query(Order.ticket_type).filter(Order.ticket_type.like(2)).count()
 
     def __str__(self):
         return self.name
@@ -135,11 +115,13 @@ class LogoutView(BaseView):
         return current_user.is_authenticated
 
 
-###check
 class FlightModelView(AuthenticatedView):
     column_labels = dict(airfield='Sân bay đi', airfield_land_off='Sân bay đến', datetime='Khởi hành',
                          time_duration='Thời gian', available_chair='Ghế trống', unavailable_chair='Ghế đã đặt',
                          flight_schedule='Lịch chuyến bay', price='Giá tiền')
+    max = Rules.query.filter(Rules.max_airfield).first()
+    if session.query(Flight.id).count() >= max.max_airfield:
+        can_create = False
 
 
 class FlightScheduleModelView(AuthenticatedView):
@@ -156,16 +138,10 @@ class OrderModelView(AuthenticatedView):
                          flightschedule='Chuyến bay', tickets='Vé')
 
 
-class TicketModelView(AuthenticatedView):
-    column_labels = dict(order='Thông tin vé đã được đặt')
-
-
-class YearReportModelView(AuthenticatedView):
-    pass
-
-
-class MonthReportModelView(AuthenticatedView):
-    pass
+class RulesModelView(AuthenticatedView):
+    column_labels = dict(max_airfield='Chuyến bay tối đa', min_time_duration='Thời gian bay tối thiểu')
+    can_create = False
+    can_delete = False
 
 
 class UserModelView(AuthenticatedView):
@@ -175,9 +151,7 @@ class UserModelView(AuthenticatedView):
 admin.add_view(FlightModelView(Flight, db.session, name="Chuyến bay"))
 admin.add_view(FlightScheduleModelView(FlightSchedule, db.session, name='Lịch bay'))
 admin.add_view(OrderModelView(Order, db.session, name='Đơn đặt hàng'))
-admin.add_view(TicketModelView(Ticket, db.session, name='Vé'))
-admin.add_view(MonthReportModelView(MonthReport, db.session, name='Báo cáo tháng'))
-admin.add_view(YearReportModelView(YearReport, db.session, name='Báo cáo năm'))
+admin.add_view(RulesModelView(Rules, db.session, name='Quy định'))
 admin.add_view(UserModelView(User, db.session, name='Tài khoản'))
 admin.add_view(LogoutView(name="Đăng xuất"))
 

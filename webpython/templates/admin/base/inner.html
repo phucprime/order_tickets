@@ -1,5 +1,5 @@
 
-<!--market updates updates-->
+<!--Market updates-->
 <div class="market-updates">
             <a href="/admin/order">
                 <div class="col-md-4 market-update-gd btn-success text-center" style="color: white;">
@@ -31,7 +31,7 @@
                     </div>
                 </div>
             </a>
-            <a href="/admin/ticket">
+            <a href="/admin/order">
                 <div class="col-md-4 market-update-gd btn-danger text-center" style="color: white;">
                     <div class="market-update-block clr-block-3">
                         <div class="col-md-4 market-update-right">
@@ -48,9 +48,9 @@
             </a>
 		   <div class="clearfix"> </div>
 		</div>
-<!--END market updates updates-->
+<!--END market updates-->
 
-<!--second component-->
+<!--FLights component-->
 <div class="inner-block">
 <div class="chit-chat-layer1">
 	<div class="col-md-12 chit-chat-layer1-left">
@@ -66,7 +66,7 @@
                                           <th>Sân bay đi</th>
                                           <th>Sân hạ cánh</th>
 
-                                          <th>Khởi hành</th>
+                                          <th class="text-center">Khởi hành</th>
                                           <th>Thời gian</th>
                                       </tr>
                                     </thead>
@@ -76,7 +76,7 @@
                                               <td>{{ item.id }}</td>
                                               <td><i class="fa fa-plane-departure"></i> {{ item.airfield }} </td>
                                                 <td><i class="fa fa-plane-arrival"></i> {{ item.airfield_land_off }}</td>
-                                              <td><i class="fa fa-calendar-alt"> </i> {{ item.datetime }} </td>
+                                              <td class="text-center"><i class="fa fa-calendar-alt"> </i> {{ item.datetime.strftime('%d tháng %m, %Y') }} </td>
                                                 <td><i class="fa fa-clock"></i> {{ item.time_duration }}</td>
                                           </tr>
                                         {% endfor %}
@@ -88,9 +88,9 @@
 
      <div class="clearfix"> </div>
 </div></div>
-<!--END second component-->
+<!--END FLights component-->
 
-<!--third component-->
+<!--Comments component-->
 <div class="row">
               <div class="col-12 grid-margin">
                 <div class="card">
@@ -102,7 +102,8 @@
                           <tr>
 
                             <th> Mã hoá đơn </th>
-                              <th> CMND Khách hàng </th>
+                            <th> Khách hàng</th>
+                            <th> CMND </th>
                             <th> Loại vé </th>
                             <th> Di động </th>
                             <th> Giá vé </th>
@@ -112,12 +113,16 @@
                         {% for item in current_user.order_table %}
                           <tr>
                             <td><i class="fa fa-money-bill"></i> {{ item.bill }} </td>
-                              <td>
-                              <img style="width: 25px;" src="https://cdn3.iconfinder.com/data/icons/unigrid-phantom-human-vol-1/60/011_040_man_guy_user_human_avatar-512.png" class="mr-2" alt="image">
-                                {{ item.identity_number }} </td>
+
+                            <td> <img style="width: 25px;" src="https://cdn3.iconfinder.com/data/icons/unigrid-phantom-human-vol-1/60/011_040_man_guy_user_human_avatar-512.png" class="mr-2" alt="image">
+                                         {{ item.passengers }}
+                            </td>
+                            <td>
+                                    {{ item.identity_number }}
+                            </td>
                             <td>Hạng {{ item.ticket_type }}</td>
                             <td> {{ item.phone }} </td>
-                            <td> {{ item.price }} VNĐ </td>
+                            <td> {{ "{:,.0f}".format(item.price) }} VNĐ </td>
                           </tr>
                         {% endfor %}
                         </tbody>
@@ -127,4 +132,14 @@
                 </div>
               </div>
             </div>
-<!--END third component-->
+<!--END Comments component-->
+
+<!-- Report Block -->
+<div class="container text-center col-md-12" style="border: 1px solid #0f98ce; border-radius: 10px; padding: 10px;">
+    <br /><h1 class="text-primary">BÁO CÁO DOANH THU</h1>
+    {% for item in current_user.revenue %}
+        <h3>Tổng doanh thu: <span class="text-danger">{{ "{:,.0f}".format(item.revenue) }}</span> VNĐ.</h3>
+    {% endfor %}
+    <h3>Tổng <span class="text-danger">{{ current_user.ticket_1 }} </span> Vé hạng 1.</h3>
+    <h3>Tổng <span class="text-danger">{{ current_user.ticket_2 }} </span> Vé hạng 2.</h3>
+</div>

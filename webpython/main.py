@@ -1,6 +1,6 @@
 from flask_mail import Message
 from webpython import app, login, dao, mail
-from flask import render_template, request
+from flask import render_template, request, url_for
 from flask_login import login_user
 from webpython.models import *
 import hashlib
@@ -53,9 +53,12 @@ def order_flight():
                          phone=phone,
                          email=request.form['email'],
                          price=request.form['price'])
+
             db.session.add(bill)
-            flight = request.form['flight']
             db.session.commit()
+
+            flight = request.form['flight']
+
     return render_template("home/confirm.html", bill=bill, flight=flight)
 
 
@@ -81,7 +84,7 @@ def login_admin():
 
 
 account_sid = "ACd5107eb430c675476c846de4b5c102d2"
-auth_token = "3a25e1a430fabde4c97b274efe24b535"
+auth_token = "875ba27ac979f6ed1cfc4ed29cd9f9a0"
 client = Client(account_sid, auth_token)
 
 
@@ -128,5 +131,4 @@ def mail_sender():
 
 
 if __name__ == '__main__':
-    db.create_all()
     app.run()

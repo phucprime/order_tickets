@@ -14,7 +14,7 @@
                                <h1 class="text-primary">CHI TIẾT CHUYẾN BAY</h1><br /><br /><br />
                             </div>
                             <div class="table-responsive">
-
+                {% if schedule %}
                        {% for item in schedule %}
                            <table class="col-md-12" >
                             <thead >
@@ -187,6 +187,13 @@
                                     </tbody>
                             </table>
                {% endfor %}
+        {% else %}
+
+                    <img style="width: 300px; position: relative; left: 38%;" src="{{ url_for('static', filename='img/error.png') }}">
+                    <br /><h2 class="text-danger text-center">Chưa có lịch bay của chuyến bay này!</h2>
+
+                    <br />
+        {% endif %}
 
                        </div>
              </div>

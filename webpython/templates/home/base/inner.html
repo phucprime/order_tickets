@@ -56,7 +56,7 @@
                                             <form action="{{ url_for('details_flight', flight_id=item.id) }}">
                                                 <tr>
                                                     <td>
-                                                        <img style="width: 50px; margin-top: -10px; margin-right: -20px;" src="https://lh3.googleusercontent.com/proxy/_7ZhLppweoiAvhbsVi0DKPsuPjW2UvJa0joimUsh-l7PC622juT4jL2PHMU17ngcF3n1Kn18KclUtwT5GS_-Cl5AqnHItKQwuk5MswTbuaQM5t6AScAM78sV-RY">
+                                                        <img style="width: 55px; margin-top: -15px; margin-right: -20px;" src="{{ url_for('static', filename='img/bestseller.png') }}">
                                                     </td>
                                                     <td>
                                                         {{ item.id }}
@@ -68,7 +68,7 @@
                                                         </i> {{ item.airfield_land_off }}
                                                     </td>
                                                     <td class="text-center">
-                                                        <i class="fa fa-calendar-alt"> </i> {{ item.datetime }}
+                                                        <i class="fa fa-calendar-alt"> </i> {{ item.datetime.strftime('%d tháng %m, %Y') }}
                                                     </td>
                                                     <td class="text-center">
                                                         <i class="fa fa-clock"></i> {{ item.time_duration }}
@@ -100,7 +100,7 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 hh14-text margin-bottom">
                     <div class="hh14-info">
-                        <img src="https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/3_avatar-512.png" alt="product" class="img-responsive ">
+                        <img src="{{ url_for('static', filename='img/ava-boy.png') }}" alt="product" class="img-responsive ">
                         <span>Willson Nguyen</span>
                         <p class="para mt-3">Web nhanh quá ^^ ahuhu chất lượng thì khỏi bàn. 5 sao :D</p>
                         <i class="fa fa-star fa-2x" style="color: #ffe80a"></i>
@@ -113,7 +113,7 @@
 
                     <div class="col-lg-6 col-md-6 hh14-text">
                         <div class="hh14-info">
-                            <img src="https://cdn.pixabay.com/photo/2016/08/20/05/36/avatar-1606914_1280.png" alt="product" class="img-responsive ">
+                            <img src="{{ url_for('static', filename='img/ava-girl.png') }}" alt="product" class="img-responsive ">
                             <span>Ngọc Mozilla</span>
                             <p class="para mt-3">Giá cả cạnh tranh, dịch vụ và hỗ trợ khách hàng rất tốt.</p>
                             <i class="fa fa-star fa-2x" style="color: #ffe80a"></i>
