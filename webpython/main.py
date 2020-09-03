@@ -1,6 +1,6 @@
 from flask_mail import Message
 from webpython import app, login, dao, mail
-from flask import render_template, request, url_for
+from flask import render_template, request
 from flask_login import login_user
 from webpython.models import *
 import hashlib
@@ -79,12 +79,11 @@ def login_admin():
 
         if user:
             login_user(user=user)
-
     return redirect("/admin")
 
 
 account_sid = "ACd5107eb430c675476c846de4b5c102d2"
-auth_token = "875ba27ac979f6ed1cfc4ed29cd9f9a0"
+auth_token = "67fd61165bc1f85700587845298c1566"
 client = Client(account_sid, auth_token)
 
 

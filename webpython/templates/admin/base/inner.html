@@ -135,11 +135,11 @@
 <!--END Comments component-->
 
 <!-- Report Block -->
-<div class="container text-center col-md-12" style="border: 1px solid #0f98ce; border-radius: 10px; padding: 10px;">
+<div class="container text-center col-md-12" style="border: 1px solid #0f98ce; border-radius: 10px; padding: 10px; margin-bottom: 20px;">
     <br /><h1 class="text-primary">BÁO CÁO DOANH THU</h1>
     {% for item in current_user.revenue %}
         <h3>Tổng doanh thu: <span class="text-danger">{{ "{:,.0f}".format(item.revenue) }}</span> VNĐ.</h3>
     {% endfor %}
-    <h3>Tổng <span class="text-danger">{{ current_user.ticket_1 }} </span> Vé hạng 1.</h3>
-    <h3>Tổng <span class="text-danger">{{ current_user.ticket_2 }} </span> Vé hạng 2.</h3>
+    <h3>Tổng <span class="text-danger">{{ current_user.ticket_1 }} </span> vé hạng một.</h3>
+    <h3>Tổng <span class="text-danger">{{ current_user.ticket_2 }} </span> vé hạng hai.</h3>
 </div>
