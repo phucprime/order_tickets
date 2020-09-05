@@ -188,11 +188,12 @@
                             </table>
                {% endfor %}
         {% else %}
-
-                    <img style="width: 300px; position: relative; left: 38%;" src="{{ url_for('static', filename='img/error.png') }}">
-                    <br /><h2 class="text-danger text-center">Chưa có lịch bay của chuyến bay này!</h2>
-
-                    <br />
+                    <div class="container text-center">
+                        <img style="width: 300px;" src="{{ url_for('static', filename='img/error.png') }}">
+                        <br /><h2 class="text-danger text-center">Chưa có lịch bay của chuyến bay này!</h2><br />
+                        <button onclick="history.back(-1)" class="btn btn-primary">Quay lại</button>
+                        <br />
+                    </div>
         {% endif %}
 
                        </div>
