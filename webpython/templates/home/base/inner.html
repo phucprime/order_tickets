@@ -48,7 +48,7 @@
                                           <th>Sân bay đi</th>
                                           <th>Sân hạ cánh</th>
                                           <th class="text-center">Khởi hành</th>
-                                          <th class="text-center">Thời gian</th>
+                                          <th>Thời gian</th>
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -70,8 +70,8 @@
                                                     <td class="text-center">
                                                         <i class="fa fa-calendar-alt"> </i> {{ item.datetime.strftime('%d tháng %m, %Y') }}
                                                     </td>
-                                                    <td class="text-center">
-                                                        <i class="fa fa-clock"></i> {{ item.time_duration }}
+                                                    <td>
+                                                        <i class="fa fa-clock"></i> {{ item.time_duration }} phút
                                                     </td>
                                                     <td>
                                                         <button type="submit" class="btn btn-primary">Chi tiết</button>

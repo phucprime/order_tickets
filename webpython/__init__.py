@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_login import LoginManager
 from flask_mail import Mail
+from sqlalchemy.orm import sessionmaker
 
 app = Flask(__name__)
 app.secret_key = "7p\x1d\xf6\xb4\xcb\xde\xd2\x92\x0en\x9b\x8b\xdf\xfe\xbc"
@@ -28,3 +29,6 @@ db = SQLAlchemy(app)
 admin = Admin(app=app, name="Trang quản lý", template_mode="bootstrap3")
 
 login = LoginManager(app=app)
+
+Session = sessionmaker(bind=db.engine, autocommit=False, autoflush=False)
+session = Session()

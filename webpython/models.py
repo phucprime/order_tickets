@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, Boolean
-from sqlalchemy.orm import relationship, sessionmaker
-from webpython import admin, db
+from sqlalchemy.orm import relationship
+from webpython import admin, db, session
 from flask import redirect
 from flask_admin.contrib.sqla import ModelView
 from flask_login import UserMixin, current_user, logout_user
@@ -9,13 +9,16 @@ from datetime import datetime
 from sqlalchemy.sql import func
 
 
-Session = sessionmaker(bind=db.engine)
-session = Session()
-
-
 class AuthenticatedView(ModelView):
     def is_accessible(self):
         return current_user.is_authenticated
+
+
+class Rules(db.Model):
+    __tablename__ = "rules"
+    id = Column(Integer, nullable=False, primary_key=True, autoincrement=True)
+    max_airfield = Column(Integer, default=10)
+    min_time_duration = Column(Integer, default=30)
 
 
 class Flight(db.Model):
@@ -23,19 +26,18 @@ class Flight(db.Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
     airfield = Column(String(30), nullable=False)
     airfield_land_off = Column(String(30), nullable=False)
-    datetime = Column(DateTime, default=datetime.now())
-    time_duration = Column(String(20), nullable=False)
+    datetime = Column(DateTime, default=datetime.now().date())
+    time_duration = Column(Integer, nullable=False)
     available_chair = Column(Integer, default=0)
     unavailable_chair = Column(Integer, default=0)
     price = Column(Float, default=0)
     flight_schedule = relationship('FlightSchedule', backref='flight', lazy=True)
 
     def __str__(self):
-        return "Chuyến bay số " + str(self.id) \
-               + ": " + self.airfield \
+        return "Chuyến bay số " + str(self.id) + " : " + self.airfield \
                + " - " + self.airfield_land_off \
-               + " - Khởi hành: " + str(self.datetime) \
-               + " - Thời gian: " + self.time_duration \
+               + " - Khởi hành: " + str(self.datetime.date()) \
+               + " - Thời gian: " + str(self.time_duration) + " phút " \
                + " - Ghế trống: " + str(self.available_chair) \
                + " - Ghế đã đặt: " + str(self.unavailable_chair)
 
@@ -46,10 +48,10 @@ class FlightSchedule(db.Model):
     chair_type_1 = Column(Integer, default=0, nullable=False)
     chair_type_2 = Column(Integer, default=0, nullable=False)
     mid_airfield = Column(String(30))
-    mid_airfield_time = Column(String(20))
+    mid_airfield_time = Column(Integer)
     mid_airfield_note = Column(String(50))
     mid_airfield_2 = Column(String(30))
-    mid_airfield_time_2 = Column(String(20))
+    mid_airfield_time_2 = Column(Integer)
     mid_airfield_note_2 = Column(String(50))
     orders = relationship('Order', backref='flightschedule', lazy=True)
 
@@ -75,13 +77,6 @@ class Order(db.Model):
                + " - Hành khách: " + str(self.passengers) \
                + " - SĐT: " + self.phone \
                + " - Giá: " + str(self.price) + " VNĐ"
-
-
-class Rules(db.Model):
-    __tablename__ = "rules"
-    id = Column(Integer, nullable=False, primary_key=True, autoincrement=True)
-    max_airfield = Column(Integer, default=10)
-    min_time_duration = Column(Integer, default=30)
 
 
 class User(db.Model, UserMixin):
@@ -117,18 +112,15 @@ class LogoutView(BaseView):
 
 class FlightModelView(AuthenticatedView):
     column_labels = dict(airfield='Sân bay đi', airfield_land_off='Sân bay đến', datetime='Khởi hành',
-                         time_duration='Thời gian', available_chair='Ghế trống', unavailable_chair='Ghế đã đặt',
+                         time_duration='Thời gian (phút)', available_chair='Ghế trống', unavailable_chair='Ghế đã đặt',
                          flight_schedule='Lịch chuyến bay', price='Giá tiền')
-    max = Rules.query.filter(Rules.max_airfield).first()
-    if session.query(Flight.id).count() >= max.max_airfield:
-        can_create = False
 
 
 class FlightScheduleModelView(AuthenticatedView):
     column_labels = dict(flight='Thông tin chuyến bay', chair_type_1='Ghế loại 1', chair_type_2='Ghế loại 2',
-                         mid_airfield='Sân trung gian 1', mid_airfield_time='Thời gian dừng 1',
+                         mid_airfield='Sân trung gian 1', mid_airfield_time='Thời gian dừng 1 (phút)',
                          mid_airfield_note='Ghi chú 1',
-                         mid_airfield_2='Sân trung gian 2', mid_airfield_time_2='Thời gian dừng 2',
+                         mid_airfield_2='Sân trung gian 2', mid_airfield_time_2='Thời gian dừng 2 (phút)',
                          mid_airfield_note_2='Ghi chú 2', orders='Phiếu đặt chỗ')
 
 

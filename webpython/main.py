@@ -1,5 +1,5 @@
 from flask_mail import Message
-from webpython import app, login, dao, mail
+from webpython import app, login, dao, mail, session
 from flask import render_template, request
 from flask_login import login_user
 from webpython.models import *
@@ -9,9 +9,15 @@ from twilio.rest import Client
 
 @app.route("/")
 def home_index():
+
     airfield = request.args["airfield"] if request.args.get("airfield") else None
     airfield_land_off = request.args["airfield_land_off"] if request.args.get("airfield_land_off") else None
     keyword = request.args["keyword"] if request.args.get("keyword") else None
+
+    Flight.query.filter(Flight.time_duration <
+                        Rules.query.filter(Rules.min_time_duration).first().min_time_duration).delete()
+
+    db.session.commit()
 
     return render_template("home/index.html", option=dao.option_flights(),
                            flights=dao.read_flights(airfield=airfield,
@@ -21,28 +27,34 @@ def home_index():
 
 @app.route("/schedule/<int:flight_id>")
 def details_flight(flight_id):
+
     return render_template("home/flight_schedule.html", schedule=dao.flight_details(flight_id))
 
 
 @app.route("/done-cancel/<string:passengers>")
 def done_cancel(passengers):
+
     return render_template("home/done-delete.html", passengers=dao.cancel(passengers))
 
 
 @app.route("/about")
 def about():
+
     return render_template("home/about.html")
 
 
 @app.route("/schedule/order/<int:schedule_id>")
 def order_form(schedule_id):
+
     return render_template("home/order.html", schedule=dao.flight_details(schedule_id))
 
 
 @app.route("/order-flight", methods=["get", "post"])
 def order_flight():
+
     if request.method.lower() == "post":
         phone = request.form['phone']
+
         if len(phone) < 10:
             return render_template("home/confirm.html")
         else:
@@ -64,11 +76,13 @@ def order_flight():
 
 @login.user_loader
 def user_load(user_id):
+
     return User.query.get(user_id)
 
 
 @app.route("/login_admin", methods=['GET', 'POST'])
 def login_admin():
+
     if request.method == 'POST':
         username = request.form.get("username")
         password = request.form.get("password")
@@ -79,7 +93,26 @@ def login_admin():
 
         if user:
             login_user(user=user)
+
+        max = Rules.query.filter(Rules.max_airfield).first()
+
+        if Flight.query.filter(Flight.id).count() >= max.max_airfield:
+            FlightModelView.can_create = False
+        else:
+            FlightModelView.can_create = True
+
     return redirect("/admin")
+
+
+@app.route("/admin/flight")
+def flight_view():
+    max = Rules.query.filter(Rules.max_airfield).first()
+
+    if Flight.query.filter(Flight.id).count() >= max.max_airfield:
+        FlightModelView.can_create = False
+    else:
+        FlightModelView.can_create = True
+    return redirect("/admin/flight")
 
 
 account_sid = "ACd5107eb430c675476c846de4b5c102d2"
@@ -89,6 +122,7 @@ client = Client(account_sid, auth_token)
 
 @app.route("/mail-sender", methods=["get", "post"])
 def mail_sender():
+
     email = request.form['email']
     flight = request.form['flight']
     identity_number = request.form['identity_number']
@@ -131,3 +165,4 @@ def mail_sender():
 
 if __name__ == '__main__':
     app.run()
+
