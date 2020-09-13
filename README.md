@@ -2,6 +2,7 @@
 ## Guide
 * Insert data from database.sql.
 * Build this project environment with requirements.txt
+* Manager account: admin/admin
 
 ### Home page
 
