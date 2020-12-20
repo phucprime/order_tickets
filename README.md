@@ -16,7 +16,7 @@
 
 ![Details](Screenshots/details.png "demo")
 
-### Flight have no schedule
+### Flights have no schedule
 
 ![Notfound](Screenshots/notfound.png "demo")
 
