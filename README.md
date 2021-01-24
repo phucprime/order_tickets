@@ -1,4 +1,4 @@
-# Manager & Sell Airplane Tickets [Python with Flask]
+# Manager & Sell Airplane Tickets [Python Flask]
 ## Guide
 * Insert data from database.sql.
 * Build this project environment with requirements.txt
