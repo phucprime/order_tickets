@@ -8,15 +8,15 @@
 
 ![Home](Screenshots/home.png "demo")
 
-### List Flights
+### Flights list 
 
 ![List](Screenshots/list.png "demo")
 
-### Details Flight
+### Flight details
 
 ![Details](Screenshots/details.png "demo")
 
-### Flights have no schedule
+### Flights do not have schedule
 
 ![Notfound](Screenshots/notfound.png "demo")
 
@@ -24,16 +24,16 @@
 
 ![Form](Screenshots/form.png "demo")
 
-### Search
+### Search flights
 
 ![Search](Screenshots/search.png "demo")
 
-### Admin Page
+### Admin page
 
 ![Admin](Screenshots/admin.png "demo")
 
-### SMS Twilio
+### SMS using Twilio
 
 ![SMS](Screenshots/sms.jpg "demo")
 
-The End.
+### The End.
